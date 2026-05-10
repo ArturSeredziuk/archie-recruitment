@@ -1,0 +1,21 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.idea/
+.vscode/
+*.code-workspace
+
+# Tool/agent state
+.claude/
+
+# Build artefacts (none right now — this is a static site)
+node_modules/
+dist/
+.cache/
+
+# Local env
+.env
+.env.local
