@@ -4,7 +4,7 @@ Outsourced recruitment for the Dutch market. Static landing page built with vani
 
 ## Live site
 
-- Production: https://archierecruitment.com (configure once domain is connected)
+- Production: https://www.archie-recruitment.com
 - Preview / staging: `*.pages.dev` (auto-deployed on every push to `main`)
 
 ## Local development
