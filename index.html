@@ -31,6 +31,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Calendly popup widget (loads ~15KB async, only triggered on CTA clicks) -->
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1902,8 +1906,7 @@ footer {
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-cta">
-    <a href="#contact" class="btn-ghost">Talk to Archie</a>
-    <a href="#contact" class="btn-primary">Start hiring</a>
+    <a href="https://calendly.com/archie-recruitment-info/30min" target="_blank" rel="noopener" class="btn-primary" data-calendly>Book an intro call</a>
   </div>
 </nav>
 
@@ -2435,7 +2438,7 @@ footer {
     <h2 class="cta-title reveal">Let's fill the role <em>you've been stuck on.</em></h2>
     <p class="cta-sub reveal">A 30-minute intake. A shortlist in 1-2 days. No retainer, no upfront fees — you pay when someone starts.</p>
     <div class="cta-actions reveal">
-      <a href="mailto:hello@archie-recruitment.com" class="btn-cta-primary">
+      <a href="https://calendly.com/archie-recruitment-info/30min" target="_blank" rel="noopener" class="btn-cta-primary" data-calendly>
         Book an intro call
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -2670,8 +2673,8 @@ footer {
 
 <!-- ─── MORPHING CTA: hero buttons that shrink into a floating pill on scroll ─── -->
 <div class="cta-morph" id="cta-morph" role="region" aria-label="Quick actions">
-  <a href="#contact" class="cta-btn cta-btn--primary" id="cta-book">
-    <span>Book a call</span>
+  <a href="https://calendly.com/archie-recruitment-info/30min" target="_blank" rel="noopener" class="cta-btn cta-btn--primary" id="cta-book" data-calendly>
+    <span>Book an intro call</span>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
   </a>
   <button type="button" class="cta-btn cta-btn--ghost" id="cta-offer">
@@ -2843,8 +2846,8 @@ footer {
   <footer class="offer-footer">
     <div class="offer-footer-inner">
       <button type="button" class="btn-ghost" id="offer-close-btn">Close</button>
-      <a href="#contact" class="btn-primary" id="offer-book" style="display:inline-flex; align-items:center; gap:7px;">
-        Book a call
+      <a href="https://calendly.com/archie-recruitment-info/30min" target="_blank" rel="noopener" class="btn-primary" id="offer-book" data-calendly style="display:inline-flex; align-items:center; gap:7px;">
+        Book an intro call
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
@@ -3056,6 +3059,40 @@ footer {
       offerBody.scrollBy({ top: offerBody.clientHeight * 0.7, behavior: 'smooth' });
     });
   }
+})();
+</script>
+
+<script>
+// ─── Calendly popup hook ───────────────────────────────────────────────────
+// Any element marked with `data-calendly` opens the Calendly popup widget on
+// click. The element's `href` is used as the calendar URL (fallback to a
+// hardcoded URL if missing). If Calendly script hasn't loaded (offline / CSP /
+// adblock), the link's `href` naturally opens in a new tab as a graceful
+// fallback — that's why we keep semantic `<a href>` markup.
+(function() {
+  const FALLBACK_URL = 'https://calendly.com/archie-recruitment-info/30min';
+  document.querySelectorAll('[data-calendly]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      // Only intercept if Calendly is loaded; otherwise let the browser
+      // navigate to the href as fallback (opens calendly in new tab).
+      if (window.Calendly && typeof window.Calendly.initPopupWidget === 'function') {
+        e.preventDefault();
+        const url = el.getAttribute('href') || FALLBACK_URL;
+        window.Calendly.initPopupWidget({ url: url });
+        // If the click came from inside the offer drawer, close it for clarity
+        const drawer = document.getElementById('offer-drawer');
+        const backdrop = document.getElementById('offer-backdrop');
+        if (drawer && drawer.classList.contains('open')) {
+          setTimeout(() => {
+            drawer.classList.remove('open');
+            backdrop && backdrop.classList.remove('open');
+            drawer.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+          }, 120);
+        }
+      }
+    });
+  });
 })();
 </script>
 
