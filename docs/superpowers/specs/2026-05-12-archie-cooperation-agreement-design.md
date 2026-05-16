@@ -12,17 +12,38 @@ Based on the existing `Collaboration_Agreement.pdf` from MrRecruitMe, but with r
 
 ## Output format
 
-Single self-contained HTML file. User opens in browser → Print → "Save as PDF" → ready to send for signature.
+**Primary:** PDF (`contracts/cooperation-agreement.pdf`), generated from a branded HTML template (`contracts/cooperation-agreement.html`) rendered to PDF via Chrome headless. Full landing-page branding fidelity (Instrument Serif + Geist from Google Fonts, orange/amber/rose gradient, AR logo on every page via CSS `position: running()`).
 
-- Self-contained = inline `<style>`, no JS, no build step. Mirrors the existing `index.html` pattern in this repo.
-- Google Fonts (Instrument Serif + Geist) preloaded the same way as on the landing page (graceful fallback to system serif/sans).
-- A4 portrait, `@page` print rules ensure correct sizing in any modern browser.
+**Alternative:** Word `.docx` (`contracts/cooperation-agreement.docx`), generated from a docx-js script. Useful when a partner wants to negotiate edits or insert tracked changes in their own Word workflow before signing.
+
+### Per-contract workflow
+
+The user does not edit the source HTML/docx for each new client. Instead:
+1. Open the PDF (or docx) in any viewer/editor that supports text replace.
+2. Use Find & Replace on the bracketed placeholders: `[Date]`, `[Place]`, `[Company name]`, `[Street address]`, `[Postal Code + Place]`, `[Name]`, `[VAT ID]`, `[KvK / CRN / equivalent]`.
+3. Export as a new PDF.
+4. Send to the partner for signature.
+
+If Archie's own data changes (address, NIP, email, fee structure), edit the generator script in `scripts/` and re-run `node scripts/generate-contract-pdf.js` to produce a fresh template.
 
 ## File location
 
-`contract-cooperation-agreement.html` at repo root. Sits alongside `index.html` and reuses the same logo / brand assets (`AR_black.svg`).
+Everything contract-related lives under `contracts/` (subdir, not repo root) and `scripts/`:
 
-Rationale: it's a brand artefact of Archie Recruitment, versioned together with the landing page and the logo files it embeds. No separate repo needed for a single template.
+```
+contracts/
+├── cooperation-agreement.pdf     # primary deliverable
+├── cooperation-agreement.html    # source for the PDF (editable for tweaks)
+└── cooperation-agreement.docx    # alternative editable format
+
+scripts/
+├── generate-contract-pdf.js      # builds HTML + runs Chrome headless to render PDF
+└── generate-contract.js          # builds docx via docx-js
+```
+
+Rationale for `contracts/` subdir (not repo root): the repo deploys to Cloudflare Pages, which serves the entire production branch as static assets. Keeping these files in a subdir avoids cluttering the root URL space and makes the public exposure footprint explicit (`archie-recruitment.com/contracts/...` if anyone guesses the path). Future hardening (block via Worker, move out of deploy, sign URLs) is tracked separately.
+
+Logo embedded as PNG (`AR_black_tight.png`) — Word does not render SVG reliably, and Chrome's print pipeline benefits from raster for crisp small-size rendering.
 
 ## Branding
 
@@ -102,23 +123,32 @@ Signature & Date                          Signature & Date
 
 User edits these directly in the HTML before printing, or uses browser DevTools to override for one-off contracts. Future enhancement (out of scope here): a tiny form on page-load that prompts for values and substitutes them.
 
-## Print CSS
+## Document layout
 
-- `@page { size: A4; margin: 18mm 16mm; }`
-- Headings (`h1`, `h2`) `page-break-after: avoid`
-- Section blocks `page-break-inside: avoid` where feasible (party blocks, fee table, signature row)
-- Page numbers via `counter(page)` in `@bottom-center` running element (works in Chromium-based browsers reliably — Firefox print falls back to plain footer text)
+- **Page size:** A4 portrait, margins 2cm top/bottom, 2.2cm left/right
+- **Header (every page):** logo on the left (~40px height), thin orange divider rule below
+- **Footer (every page):** centered text "COOPERATION AGREEMENT — Archie Recruitment | Confidential" + page number "Page X of N" on the right
+- **Title block (page 1 only):** "COOPERATION AGREEMENT" in 28pt Cambria (Instrument Serif fallback), subline in 11pt Calibri grey
+- **Party blocks:** two stacked blocks with subtle 1pt orange left border, "PARTY A" / "PARTY B" headings in orange bold caps
+- **§ headings:** Cambria 14pt bold, with orange underline rule
+- **Fee table:** single-row table with light orange header fill, full-width
+- **Bullets:** standard Word bullet list, slightly tightened spacing
+- **Signature blocks:** two-column table at end (page 3), with signature lines and labels
 
 ## Out of scope
 
-- Word `.docx` export
 - Backend templating / form-based contract generation
 - Multi-language (English-only for now, same as original)
-- Electronic signature integration
+- Electronic signature integration (tracked separately — see *Future work*)
 - Legal review of contract clauses (text copied verbatim from the existing MrRecruitMe template, which has presumably been vetted)
+
+## Future work
+
+- **Digital signing platform on archie-recruitment.com** — magic-link authentication, in-browser signature capture (canvas), per-client contract instance with placeholders auto-filled, audit trail (IP + timestamp). Optional eIDAS-compliant qualified e-signature integration. Estimated 3–7 days of work depending on legal compliance scope. Tracked via spawned task chip.
+- **Public exposure hardening** — currently `contracts/cooperation-agreement.pdf` will be reachable via the deployed domain. Options: a Cloudflare Worker that returns 403 on `/contracts/*`, or move the contracts dir into a non-deployed branch.
 
 ## Open risks
 
-- **Browser print fidelity** — Chromium reliably renders `@page` rules; Firefox occasionally rasterizes gradients differently. Recommend Chromium-based browser for final PDF export. To verify after first render.
-- **Logo size at 100% zoom** — `AR_black.svg` is square; need to confirm it renders crisp at ~48px height in print.
-- **Font fallback** — if user prints offline without cached Google Fonts, falls back to Georgia / system sans. Acceptable.
+- **Font availability** — Instrument Serif and Geist (used on the landing) are not standard in Office; falling back to Cambria (serif) and Calibri (sans) for cross-platform fidelity. Acceptable trade-off for portability.
+- **SVG logo** — Word does not render SVG reliably across versions. Using `AR_black_tight.png` instead for the embedded logo.
+- **Color rendering on print** — orange/amber gradient cannot be reproduced exactly in docx (Word supports solid colors and basic gradients but not the multi-stop landing gradient). Plan: use solid `--orange #ff7a45` as the primary accent (borders, underlines, table header fill) — single-color discipline keeps it clean and on-brand.

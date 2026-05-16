@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cooperation Agreement — Archie Recruitment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #ff7a45;
+  --amber:  #ffb454;
+  --rose:   #ff5c8a;
+  --grad:   linear-gradient(100deg, #ff5c8a 0%, #ff7a45 50%, #ffb454 100%);
+  --black:  #0a0a0a;
+  --g1:     #1a1a1a;
+  --g2:     #3a3a3a;
+  --g3:     #6b6b6b;
+  --g5:     #d4d4d4;
+  --g6:     #ebebeb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@page {
+  size: A4;
+  margin: 22mm 18mm 22mm 18mm;
+  @top-left {
+    content: element(running-header);
+  }
+  @bottom-center {
+    content: "COOPERATION AGREEMENT — Archie Recruitment  |  Confidential  |  Page " counter(page) " of " counter(pages);
+    font-family: 'Geist', system-ui, sans-serif;
+    font-size: 7.5pt;
+    color: #6b6b6b;
+    padding-top: 4mm;
+  }
+}
+
+body {
+  font-family: 'Geist', system-ui, sans-serif;
+  color: var(--g2);
+  font-size: 10pt;
+  line-height: 1.55;
+}
+
+/* Running header: logo + thin orange rule, on every page */
+.running-header {
+  position: running(running-header);
+  width: 174mm;          /* page width − margins */
+  padding-bottom: 3mm;
+  border-bottom: 0.6pt solid var(--orange);
+  display: flex;
+  align-items: center;
+}
+.running-header img {
+  height: 10mm;
+  width: auto;
+  display: block;
+}
+
+/* ── Title ─────────────────────────────────────────── */
+.title-block {
+  margin: 3mm 0 8mm 0;
+}
+.title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
+  font-size: 36pt;
+  color: var(--black);
+  line-height: 1.0;
+  letter-spacing: 0.2pt;
+  margin-bottom: 4mm;
+}
+.subtitle-row {
+  border-bottom: 0.6pt solid var(--g5);
+  padding-bottom: 3mm;
+  font-size: 10pt;
+  color: var(--g3);
+}
+.subtitle-row .ph {
+  color: var(--g1);
+  font-weight: 600;
+}
+.subtitle-row .sep {
+  color: var(--g5);
+  padding: 0 5mm;
+}
+
+/* ── Party blocks ───────────────────────────────────── */
+.party {
+  border-left: 2.2pt solid var(--orange);
+  padding: 3.5mm 5mm;
+  margin: 3mm 0;
+  background: linear-gradient(to right, rgba(255, 122, 69, 0.04), rgba(255, 255, 255, 0));
+  break-inside: avoid;
+}
+.party-label {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 1.6pt;
+  margin-bottom: 2.5mm;
+}
+.party-name {
+  font-weight: 600;
+  color: var(--g1);
+  font-size: 11.5pt;
+  margin-bottom: 1mm;
+}
+.party-line {
+  margin-bottom: 0.6mm;
+  font-size: 10pt;
+}
+.party-line .lbl {
+  color: var(--g3);
+}
+.party-placeholder {
+  color: var(--g3);
+}
+.party-hereinafter {
+  margin-top: 2.2mm;
+  font-style: italic;
+  color: var(--g3);
+  font-size: 9.5pt;
+}
+.party-hereinafter strong {
+  color: var(--g2);
+}
+
+.amp {
+  text-align: center;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 26pt;
+  color: var(--orange);
+  margin: 3mm 0;
+  line-height: 1;
+}
+
+.collectively {
+  text-align: center;
+  font-style: italic;
+  color: var(--g3);
+  margin: 5mm 0;
+  font-size: 10pt;
+}
+.collectively strong {
+  color: var(--g2);
+}
+
+p.preamble {
+  font-style: italic;
+  color: var(--g3);
+  margin-bottom: 2mm;
+}
+
+p { margin-bottom: 2mm; }
+
+/* ── Sections ───────────────────────────────────────── */
+h2.section {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 17pt;
+  font-weight: 400;
+  color: var(--black);
+  margin: 8mm 0 3.5mm 0;
+  padding-bottom: 1.6mm;
+  border-bottom: 0.8pt solid var(--orange);
+  page-break-after: avoid;
+  break-after: avoid;
+  letter-spacing: 0.1pt;
+}
+
+/* ── Lists ──────────────────────────────────────────── */
+ul.clean {
+  list-style: none;
+  padding-left: 6mm;
+  margin: 1.5mm 0 3mm 0;
+}
+ul.clean li {
+  position: relative;
+  margin-bottom: 1.6mm;
+  font-size: 10pt;
+}
+ul.clean li::before {
+  content: "•";
+  color: var(--orange);
+  font-weight: 700;
+  position: absolute;
+  left: -4mm;
+  font-size: 11pt;
+  line-height: 1.3;
+}
+
+ol.lettered {
+  list-style: none;
+  padding-left: 6mm;
+  margin: 2mm 0 3mm 0;
+}
+ol.lettered li {
+  position: relative;
+  margin-bottom: 1.4mm;
+  padding-left: 7mm;
+  font-size: 10pt;
+}
+ol.lettered li::before {
+  content: attr(data-letter) ")";
+  color: var(--orange);
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+}
+
+/* ── Fee table ──────────────────────────────────────── */
+table.fee {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3mm 0 3.5mm 0;
+  break-inside: avoid;
+  border-radius: 2mm;
+  overflow: hidden;
+}
+table.fee th {
+  background: var(--grad);
+  color: white;
+  font-weight: 600;
+  padding: 3mm 4mm;
+  text-align: left;
+  font-size: 9.5pt;
+  letter-spacing: 0.3pt;
+}
+table.fee td {
+  padding: 3mm 4mm;
+  border: 0.4pt solid var(--g5);
+  border-top: none;
+  font-size: 10pt;
+}
+table.fee td.level {
+  background: rgba(255, 180, 84, 0.14);
+  font-weight: 600;
+  color: var(--g1);
+  width: 42%;
+}
+.fee-limit {
+  font-weight: 600;
+  color: var(--g1);
+}
+.fee-sep {
+  color: var(--g5);
+  padding: 0 3mm;
+}
+
+/* ── Inline accents ─────────────────────────────────── */
+strong.ph {
+  color: var(--g1);
+  font-weight: 600;
+}
+.email-accent {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+/* ── Signature block ────────────────────────────────── */
+.signature-section {
+  margin-top: 12mm;
+  padding-top: 5mm;
+  border-top: 0.6pt solid var(--g5);
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.signature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10mm;
+}
+.sig-label {
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 1.6pt;
+  margin-bottom: 2mm;
+}
+.sig-company {
+  font-weight: 600;
+  font-size: 11.5pt;
+  color: var(--g1);
+  margin-bottom: 0.6mm;
+}
+.sig-rep {
+  color: var(--g3);
+  font-size: 10pt;
+  margin-bottom: 18mm;
+}
+.sig-line {
+  border-top: 0.6pt solid var(--g5);
+  padding-top: 1.5mm;
+  font-size: 8.5pt;
+  color: var(--g3);
+}
+</style>
+</head>
+<body>
+
+<div class="running-header">
+  <img src="data:image/png;base64,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" alt="Archie Recruitment">
+</div>
+
+<div class="title-block">
+  <h1 class="title">Cooperation Agreement</h1>
+  <div class="subtitle-row">
+    Concluded on: <span class="ph">[Date]</span><span class="sep">|</span><span class="ph">[Place]</span>
+  </div>
+</div>
+
+<div class="party">
+  <div class="party-label">PARTY A — SOURCING AGENCY</div>
+  <div class="party-name">Artur Seredziuk Archie Recruitment</div>
+  <div class="party-line">ul. Rynek Solny 1/6, 22-400 Zamość, Poland</div>
+  <div class="party-line"><span class="lbl">Represented by:</span> Artur Seredziuk</div>
+  <div class="party-line"><span class="lbl">VAT ID:</span> PL9222957890 &nbsp;&nbsp; <span class="lbl">REGON:</span> 543460480</div>
+  <div class="party-hereinafter">Hereinafter referred to as the <strong>"Sourcing Agency"</strong></div>
+</div>
+
+<div class="amp">&amp;</div>
+
+<div class="party">
+  <div class="party-label">PARTY B — EMPLOYER USER</div>
+  <div class="party-name party-placeholder">[Company name]</div>
+  <div class="party-line party-placeholder">[Street address], [Postal Code + Place]</div>
+  <div class="party-line"><span class="lbl">Represented by:</span> <span class="party-placeholder">[Name]</span></div>
+  <div class="party-line"><span class="lbl">VAT:</span> <span class="party-placeholder">[VAT ID]</span> &nbsp;&nbsp; <span class="lbl">Reg. No.:</span> <span class="party-placeholder">[KvK / CRN / equivalent]</span></div>
+  <div class="party-hereinafter">Hereinafter referred to as the <strong>"Employer User"</strong></div>
+</div>
+
+<div class="collectively">Collectively referred to as the <strong>"Parties"</strong></div>
+
+<p class="preamble">The Parties agree to conclude a new cooperation agreement. The previous contract is terminated, but commissions will be charged in accordance with this contract.</p>
+<p>The Parties declare to have agreed the following:</p>
+
+<h2 class="section">§1 — Subject of the Contract</h2>
+<p>The Parties agree that the subject of this Agreement is to define cooperation in the search, acquisition and employment of temporary workers and to determine the rules for the provision of work by temporary workers.</p>
+<p>Each time the Employer User provides the Sourcing Agency with information on the demand for temporary workers, the Parties will sign an "Understanding" determining:</p>
+<ol class="lettered">
+  <li data-letter="A">The type of work undertaken by the temporary agency worker(s);</li>
+  <li data-letter="B">The number and qualifications of the temporary agency worker(s);</li>
+  <li data-letter="C">The expected duration of employment;</li>
+  <li data-letter="D">The expected working time;</li>
+  <li data-letter="E">Place of temporary work;</li>
+  <li data-letter="F">Remuneration for the work;</li>
+  <li data-letter="H">Rules for granting leave to temporary employees.</li>
+</ol>
+
+<h2 class="section">§2 — Terms of Payment</h2>
+<p>The Employer User is obliged to remunerate the Sourcing Agency for each employee provided. The commission (success fee) is classified as follows:</p>
+<table class="fee">
+  <thead>
+    <tr><th>Level of Worker (per hourly wage)</th><th>Success Fee (per hour)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="level">Professionals+</td>
+      <td>€1.50 – €2.00 (discussed per profile)<span class="fee-sep">|</span><span class="fee-limit">1,500 hour limit</span></td>
+    </tr>
+  </tbody>
+</table>
+<ul class="clean">
+  <li>The above rates are valid from <strong class="ph">[Date]</strong> and concern both the candidates already working and those who will be employed by the client in the future.</li>
+  <li>The Sourcing Agency will receive the success fee for the period of time the Employer User has agreed to with their clients.</li>
+  <li>Payment for each recruited candidate shall be made within <strong>30 calendar days</strong> after invoice issuing. Bank details as specified on each invoice issued by the Sourcing Agency.</li>
+  <li>The Employer User is obliged to send the list of work hours every <strong>10th of the month</strong> to: <span class="email-accent">info@archie-recruitment.com</span>.</li>
+</ul>
+
+<h2 class="section">§3 — Duration of the Agreement</h2>
+<ul class="clean">
+  <li>This agreement shall come into effect on <strong class="ph">[Date]</strong>.</li>
+  <li>This agreement is concluded for an <strong>indefinite period</strong>. It can be terminated by either party with a notice period of <strong>2 weeks</strong>. The Employer User is obliged to pay the remuneration indicated in §2 (Terms of Payment).</li>
+</ul>
+
+<h2 class="section">§4 — Rights and Obligations of the Employer User</h2>
+<ul class="clean">
+  <li>Timely payment of remuneration to the Sourcing Agency as set out in §2;</li>
+  <li>Provide temporary workers with a job and workplace throughout their clients;</li>
+  <li>Provide detailed and sufficient job descriptions;</li>
+  <li>Provide all proposed candidates with feedback.</li>
+</ul>
+
+<h2 class="section">§5 — Rights and Duties of the Sourcing Agency</h2>
+<ul class="clean">
+  <li>Provision of temporary workers in accordance with the Understanding signed by the Parties;</li>
+  <li>Preparing and providing the Employer User with relevant documentation of temporary employees in English/Dutch/Polish, including all personal data and qualification confirmations;</li>
+  <li>Assist in organising or arranging travel for the candidate to the place of employment;</li>
+  <li>Information concerning clients or outstanding vacancies of the Employer User will not be shared without written permission;</li>
+  <li>The clients of the Employer User may not be contacted by the Sourcing Agency during the duration of this Agreement <strong>(§3)</strong> and for one year after termination. Violation will result in a <strong>€50,000 fine</strong>, payable effective immediately.</li>
+</ul>
+
+<h2 class="section">§6 — Law and Jurisdiction</h2>
+<ul class="clean">
+  <li>Any disputes arising under this Agreement shall be settled by the court competent for the place of the headquarters of the Employer User.</li>
+  <li>Both parties undertake to keep confidential all information obtained during cooperation and to treat candidate personal data in accordance with the Data Protection Act.</li>
+</ul>
+
+<h2 class="section">§7 — Final Provisions</h2>
+<ul class="clean">
+  <li>This Agreement has been drawn up in two identical counterparts, one for each Party.</li>
+  <li>Any changes to this Agreement shall be made in writing, under penalty of nullity.</li>
+  <li>The Parties agree on the possibility of elaborating this Agreement through separate Understandings for specific tasks.</li>
+</ul>
+
+<h2 class="section">§8 — Confidentiality</h2>
+<p>The Employer User will treat information provided by the Sourcing Agency in strict confidence, with due observance of the Personal Data Protection Act, and will only use it in the context of the Assignment. The Employer User will likewise treat information provided to it — including information regarding Candidates — in strict confidence and in accordance with applicable data protection law.</p>
+
+<h2 class="section">§9 — Non-Discrimination</h2>
+<p>Every Candidate will be treated equally by the Employer User and the Sourcing Agency regardless of age, religion, belief, political opinion, race, gender, nationality, sexual orientation, marital status, disability, or chronic illness, without prejudice to job-relevant requirements.</p>
+
+<div class="signature-section">
+  <div class="signature-grid">
+    <div>
+      <div class="sig-label">SOURCING AGENCY</div>
+      <div class="sig-company">Archie Recruitment</div>
+      <div class="sig-rep">Represented by: Artur Seredziuk</div>
+      <div class="sig-line">Signature &amp; Date</div>
+    </div>
+    <div>
+      <div class="sig-label">EMPLOYER USER</div>
+      <div class="sig-company party-placeholder">[Company name]</div>
+      <div class="sig-rep">Represented by: <span class="party-placeholder">[Name]</span></div>
+      <div class="sig-line">Signature &amp; Date</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

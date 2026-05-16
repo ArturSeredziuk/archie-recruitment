@@ -22,15 +22,32 @@ npx serve .                         # auto-port
 
 ```
 .
-├── index.html          # The whole site (HTML + inline CSS + inline JS)
-├── AR_black.svg        # Archie Recruitment logo, black
-├── AR_white.svg        # Archie Recruitment logo, white (used in dark CTA section)
-├── AR_black_tight.png  # Bbox-cropped PNG of AR (LinkedIn banner)
-├── MR_logo_black.png   # MrRecruit.me logo, black, transparent bg (LinkedIn banner)
-├── banner_C.png        # LinkedIn cover banner — Archie × MrRecruit collab
-├── artur_photo.jpg     # Profile photo used in the LinkedIn card section
+├── index.html              # The whole site (HTML + inline CSS + inline JS)
+├── AR_black.svg            # Archie Recruitment logo, black
+├── AR_white.svg            # Archie Recruitment logo, white (used in dark CTA section)
+├── AR_black_tight.png      # Bbox-cropped PNG of AR (LinkedIn banner + contract logo)
+├── MR_logo_black.png       # MrRecruit.me logo, black, transparent bg (LinkedIn banner)
+├── banner_C.png            # LinkedIn cover banner — Archie × MrRecruit collab
+├── artur_photo.jpg         # Profile photo used in the LinkedIn card section
+├── contracts/              # Generated cooperation-agreement template (PDF + sources)
+├── scripts/                # Build scripts for contract generation
+├── docs/superpowers/specs/ # Design specs (e.g. contract template)
 └── README.md
 ```
+
+## Contract templates
+
+Branded cooperation-agreement template generated from a single source-of-truth script. To regenerate after editing Archie's data, fee structure, or template wording:
+
+```bash
+# PDF (primary, via Chrome headless → no external deps)
+node scripts/generate-contract-pdf.js
+
+# Word .docx (alternative, requires `npm install -g docx`)
+node scripts/generate-contract.js
+```
+
+Outputs land in `contracts/`. Per-client workflow: open the PDF, Find & Replace bracketed placeholders (`[Date]`, `[Place]`, `[Company name]`, etc.), export, send for signature. Full spec: [`docs/superpowers/specs/2026-05-12-archie-cooperation-agreement-design.md`](docs/superpowers/specs/2026-05-12-archie-cooperation-agreement-design.md).
 
 ## Deployment
 
